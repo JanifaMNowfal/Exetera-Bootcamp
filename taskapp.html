@@ -1,0 +1,92 @@
+<!-- Task app using JS (Bulma)-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="bulma.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <meta charset="utf-8">
+    <title>Tasks</title>
+  </head>
+  <body>
+    <div class="columns is-gapless is-desktop">
+      <div class="column">
+      </div>
+      <div class="column second">
+        <div class="tile is-parent">
+        <article class="tile is-child notification is-primary">
+          <p class="title has-text-centered">Task Handler</p>
+        </article>
+      </div>
+      </div>
+      <div class="column">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <div class="columns">
+            <div class="column">
+            </div>
+            <div class="column">
+              <p class="control has-icons-left has-icons-right">
+              <input class="input is-primary is-large" id="task" type="text" value="" placeholder="Type your tasks here">
+              <span class="icon is-small is-left"><i class="fa fa-tasks" aria-hidden="true"></i></span></p><br />
+              <a class="button is-primary is-centered level-item is-outlined" onclick="addtask()" id="addtask"><span class="icon is-small">
+                <i class="fa fa-check"></i></span>Add Task</a>
+            </div>
+            <div class="column">
+            </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <div class="tile is-parent">
+              <article class="tile is-child notification is-primary">
+                <p class="title has-text-centered">Tasks - To Do</p><br>
+                <div class="content" id="tod">
+                  <ol id="todo">
+                  </ol>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="column">
+            <div class="tile is-parent">
+              <article class="tile is-child notification is-primary">
+                <p class="title has-text-centered">Tasks - Completed</p><br>
+                <div class="content">
+                  <ol id="done"></ol>
+                </div>
+                </article>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var id1=1;
+      function addtask(){
+        var id=id1;
+        id1+=1;
+        var a = document.getElementById("task").value;
+        var b = document.getElementById("todo");
+        b.innerHTML += '<li id="p'+id+'">'+a+'<a id="b'+id+'" onclick="done('+id+')" class="button is-small is-primary is-inverted is-outlined">Completed</a></li>';
+      }
+      function done(id){
+        document.getElementById("b"+id).remove();
+        var a = document.getElementById("p"+id).innerHTML;
+        var b = document.getElementById("done");
+        b.innerHTML += '<li id="p'+id+'">'+a+'<a id="b'+id+'" onclick="todo('+id+')" class="button is-small  is-primary is-inverted is-outlined">Back To Do</a></li>';
+        document.getElementById("p"+id).remove();
+        // document.getElementById("b"+id).remove();
+      }
+      function todo(id){
+        document.getElementById("b"+id).remove();
+        var a = document.getElementById("p"+id).innerHTML;
+        id1++;
+        var b = document.getElementById("todo");
+        b.innerHTML += '<li id="p'+id1+'">'+a+'<a id="b'+id1+'" onclick="done('+id1+')" class="button is-small is-primary is-inverted is-outlined">Completed</a></li>';
+        document.getElementById("p"+id).remove();
+      }
+    </script>
+  </body>
+</html>

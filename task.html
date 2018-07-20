@@ -1,0 +1,101 @@
+<!-- Task app using Vue js without container -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <style media="screen">
+      .list{
+        list-style-type: none;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <!-- <script src="vue.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="bulma.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <meta charset="utf-8">
+    <title>Tasks-Vuejs</title>
+  </head>
+  <body>
+    <div id="task1">
+      <div class="columns is-gapless is-desktop">
+        <div class="column">
+        </div>
+        <div class="column second">
+          <div class="tile is-parent">
+          <article class="tile is-child notification is-primary">
+            <p class="title has-text-centered">Task Handler</p>
+          </article>
+          </div>
+          <p class="control has-icons-left has-icons-right">
+          <input class="input is-primary is-large" type="text" value="" v-model="newtask" placeholder="Type your tasks here">
+          <span class="icon is-small is-left"><i class="fa fa-tasks" aria-hidden="true"></i></span>
+        </p><br />
+          <a class="button is-primary is-centered level-item is-outlined" @click="addtask()" id="addtask"><span class="icon is-small">
+            <i class="fa fa-check"></i></span>
+             Add Task</a>
+        </div>
+        <div class="column">
+        </div>
+      </div>
+          <div class="columns">
+            <div class="column">
+              <div class="tile is-parent">
+                <article class="tile is-child notification is-primary">
+                  <p class="title has-text-centered">Tasks - To Do</p><br>
+                  <div class="content">
+                    <div>
+                      <ol>
+                        <li v-for="(item,index) in list"  >{{item}}
+                          <a class="button is-small is-primary is-inverted is-outlined" @click="movetodone(item,index)">Completed</a>
+                          <a class="button is-small is-danger is-outlined" @click="remover(item,index,list)"><span>Delete</span><span class="icon is-small"><i class="fa fa-times"></i></span></a></li>
+                      </ol>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="column">
+              <div class="tile is-parent">
+                <article class="tile is-child notification is-primary">
+                  <p class="title has-text-centered">Tasks - Completed</p><br>
+                  <div class="content">
+                    <ol>
+                      <li v-for="(item,index) in list2">{{item}}
+                      <a class="button is-small is-primary is-inverted is-outlined" @click="movetodo(item,index)">Back To Do</a>
+                      <a class="button is-small is-danger is-outlined" @click="remover(item,index,list2)"><span>Delete</span><span class="icon is-small"><i class="fa fa-times"></i></span></a></li>
+                    </ol>
+                  </div>
+                  </article>
+                </div>
+            </div>
+          </div>
+    </div>
+  <script type="text/javascript">
+    new Vue({
+      "el":"#task1",
+      "data": {
+        newtask:"",
+        list:[],
+        list2:[],
+      },
+      methods:{
+        addtask:function(){
+          this.list.push(this.newtask);
+          this.newtask="";
+        },
+        movetodone:function (item,index) {
+          this.list2.push(item);
+          Vue.delete(this.list,index);
+        },
+        movetodo:function(item,index){
+          this.list.push(item);
+          Vue.delete(this.list2,index);
+        },
+        remover(item,index,li){
+          Vue.delete(li,index);
+        }
+      },
+    });
+  </script>
+</body>
+</html>
